@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>HTML Login Form</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <style>
+        body {
+            background-image: url({{ url_for('static', filename='backgroundrobot.jpg') }}) ;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            fornt-family: Arial,sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 15vh;
+        
+        }
+        .main{
+            background-color: rgba(255, 255, 255, 0.85);
+            width: 500px;
+            margin: 100px;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+        h1,h3{
+            margin-bottom: 0px;
+        }
+        ul{
+            list-style-type: none;
+            padding: 0;
+            color: red;
+        }
+    </style>
+    <!--<p style="background-image: href="{{ url_for('static', filename='background.jpg') }} ;">-->
+    <body>
+        <div class="main">
+            <h1>Welcome to TechMahindra <br> HR Onboarding System</h1>
+            <h3>Enter your login credentials</h3>
+            
+            {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+            {% for category, message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    </body>
+    <form method="POST" action="{{ url_for('login') }}">
+        <label for="username">
+            Username:
+        </label>
+        <input type="text" id="username" name="username" 
+            placeholder="Enter your Username" required>
+
+        <label for="password">
+            Password:
+        </label>
+        <input type="password" id="password" name="password" 
+            placeholder="Enter your Password" required>
+
+        <div class="wrap">
+            <button type="login">
+                Login
+            </button>
+        </div>
+    </form>
+    
+    <p>
+    </p>
+</div>
+</body>
+
+</html>
+

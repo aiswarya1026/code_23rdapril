@@ -1,0 +1,89 @@
+/* Resetting some default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* General body styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0; /* Updated background color */
+    color: #333;
+    padding: 0;
+    margin: 0;
+}
+
+/* Container holding the content
+.container {
+    max-width: 100%;
+    margin: 0;
+    background-color: #ECECEC;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1)
+    text-align: center;
+    display: block;
+    /*border-radius: 0px;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+} */
+
+/* Title and description styles */
+.title {
+    font-size: 36px;
+    text-align: center;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.description {
+    font-size: 18px;
+    text-align: center;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+/* Full-screen image */
+.image-container {
+    text-align: center;
+    margin-top: 0;
+    position: relative;
+}
+
+.error-image {
+    width: 100%; /* Image now spans the full width of the screen */
+    height: 93vh; /* Image will take up full height of the viewport */
+    object-fit: contain; /* Ensures the image maintains aspect ratio and fills the screen */
+}
+
+/* File upload section */
+.file-upload-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.upload-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.upload-button:hover {
+    background-color: #45a049;
+}
+
+/* Image preview */
+.image-preview {
+    max-width: 100%;
+    height: 10%;
+    display: none;
+    margin-top: 10px;
+}

@@ -1,0 +1,105 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  background-color: #f9f9f9; /* Light background color */
+  color: #333;
+  line-height: 1;
+}
+
+/* Hero Section */
+#hero {
+  background-color: lightblue; /* Light gray background */
+  text-align: center;
+  border-bottom: 0px solid #ddd;
+  background-image: url('18959.jpg');
+  height: 100vh;
+  background-position: center;
+  background-size: cover;
+}
+
+
+#hero h3 {
+  font-size: 1.rem;
+  color: navy; /* Red color for title */
+  margin-bottom: 15px;
+  margin-top: 10px;
+}
+
+#hero p {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+/* Chatbot Section */
+
+
+.upload-button {
+  padding: 12px 24px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.upload-button:hover {
+  background-color: #0056b3;
+}
+
+.demo {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+.demo th, .demo td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.demo th {
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+.demo tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Full-screen image */
+.image-container {
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: auto; /* Full width for all screen sizes */
+  height: 90%; /* 60% of the viewport height */
+  overflow: hidden;
+}
+.overlay-link {
+  position: absolute;
+  top: 90%;
+  left: 75%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  font-size: 20px;
+  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0.5); /* Optional background for better visibility */
+  padding: 10px;
+  border-radius: 5px;
+}
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the container without distortion */
+}
+

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Error Image Title</title>
+   <title>Tooltip on Load</title>
+   <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+   <!-- Font Awesome CDN for icons -->
+   <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">-->
+   <style>
+       .icon-container {
+           position: fixed;
+           bottom: 50px;
+           right: 10px;
+           display: inline-block;
+       }
+
+       .icon-tooltip {
+           visibility: hidden;
+           width: 110px;
+           background-color: black;
+           color: #fff;
+           text-align: center;
+           border-radius: 6px;
+           padding: 1px;
+           position:absolute;
+           z-index: 1;
+           bottom: 103%;
+           left: 50%;
+           transform: translateX(-50%);
+           opacity: 0;
+           transition: opacity 0.3s;
+           font-size: 18px;
+       }
+
+       .icon-container:hover .icon-tooltip {
+           visibility: visible;
+           opacity: 1;
+       }
+
+       .icon-link {
+           text-decoration: none;
+           color: #0000ff;
+           font-size: 53px;
+       }
+       
+       .icon-tooltip.show {
+          visibility: visible;
+          opacity: 1; 
+       }
+       
+    </style>
+</head>
+
+<body>
+
+   <div class="container">
+       <div class="image-container">
+           <img src="{{ url_for('static', filename='error_final.png') }}" alt="Error Image" class="error-image">
+
+           <!-- Replacing text with icon and tooltip -->
+           <a href="https://watsonxce9.1pska4xfp7g7.us-south.codeengine.appdomain.cloud/servicedesk" class="icon-link">
+               <div class="icon-container">
+                  <!-- <i class="fas fa-comments"></i> <!-- Chat icon -->
+                    
+                   <img src="{{ url_for('static',filename='agentx.gif') }}" alt="Icon" style="width: 100px; height: 125px; cursor: pointer;"/>
+                   <div class="icon-tooltip" id="tooltip"> AgentX Assistance</div>
+               </div>
+           </a>
+
+       </div>
+       
+        <!-- Chatbot Message -->
+        
+
+   </div>
+  
+   <!-- Watson Assistant Script can go here -->
+   <script>
+    window.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+            document.getElementById('tooltip').classList.add('show');
+        }, 2000); // Show after 2 seconds
+    });
+    </script>
+
+</body>
+</html>

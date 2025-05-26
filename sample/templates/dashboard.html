@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Tech Mahindra</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link type="text/css" href="./index_files/css2" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./index_files/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./index_files/styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style-dashboard.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <script src="./index_files/loadWatsonAssistantChat.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>-->
+    <!--<script src="{{ url_for('static',filename='agentx.gif') }}"></script>-->
+    
+    
+
+    <script src="papaparse.min.js"></script>
+
+    <style>
+        body {
+            background-image: url('sd-use.webp');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            font-family: 'IBM Plex Sans' !important;
+        }
+
+        /* .WAC table {
+            font-size: 7px !important;
+        } */
+
+        .WAC table {
+            display: block !important;
+            overflow-x: auto !important;
+            white-space: nowrap !important;
+        }
+
+        /* .WAC table tbody {
+            display: table !important;
+            width: 100% !important;
+        }
+
+        .WAC table {
+            border-collapse: collapse !important;
+        }
+
+        .WAC table tr:nth-child(even) {
+            background: #f2f2f2 !important;
+        }
+
+        .WAC table tr td {
+            border: 1px solid #999 !important;
+            padding: 0.5rem !important;
+        }
+
+        .WAC table thead {
+            background-color: #ccc !important;
+            color: black !important;
+        } */
+
+        /* .WAC table { border-collapse: collapse !important; } */
+        .WAC table tr:nth-child(even) { background: #f2f2f2 !important;}
+        .WAC table tr td{ border:1px solid #999 !important;padding: 0.5rem !important;}
+        .WAC table thead{ background-color: #ccc !important;
+        color: black !important;
+        }
+
+        .WAC .upload-button {
+            border: 1px solid black !important;
+            padding: 0.6rem !important;
+            background: white !important;
+            color: black !important;
+            border-radius: 5px !important;
+        }
+
+        #imagePreview {
+            max-width: 100%;
+            height: auto;
+            display: none;
+        }
+
+        #dataDisplay {
+            margin-top: 20px;
+        }
+
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .error-image {
+            max-width: 1675px;
+            max-height: 140%;
+            background-size:cover;
+        }
+
+        .overlay-link {
+            display: block;
+            margin-top: 10px;
+            color: blue;
+            text-decoration: underline;
+        }
+        
+        .icon-container {
+           position: fixed;
+           bottom: 40px;
+           right: 50px;
+           display: inline-block;
+       }
+
+       .icon-tooltip {
+           visibility: hidden;
+           width: 110px;
+           background-color: black;
+           color: #fff;
+           text-align: center;
+           border-radius: 6px;
+           padding: 1px;
+           position:absolute;
+           z-index: 1;
+           bottom: 103%;
+           left: 50%;
+           transform: translateX(-50%);
+           opacity: 0;
+           transition: opacity 0.3s;
+           font-size: 18px;
+       }
+
+       .icon-container:hover .icon-tooltip {
+           visibility: visible;
+           opacity: 1;
+       }
+
+       .icon-link {
+           text-decoration: none;
+           color: blue;
+           font-size: 53px;
+       }
+       
+       .icon-tooltip.show {
+          visibility: visible;
+          opacity: 1; 
+       }
+
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="image-container">
+           <!-- <img src="{{ url_for('static',filename='chatbot.png') }}" alt="Error Image" class="error-image">-->
+            <a href="https://watsonxce9.1pska4xfp7g7.us-south.codeengine.appdomain.cloud/servicedesk" class="icon-link">
+               <div class="icon-container">
+                 <!-- <i class="fas fa-comments"></i> <!-- Chat icon -->
+                 <!--  <div class="bottom-corner-icon"> </div>-->
+                   <img src="{{ url_for('static',filename='agentx.gif') }}" alt="Icon" style="width: 100px; height: 125px; cursor: pointer;"/>
+                   <div class="icon-tooltip" id="tooltip"> AgentX Assistance</div>
+               </div>
+           </a>
+        </div>
+        <section id="hero">
+            <h3>Tech Mahindra AgentX </h3>
+            <h4>Powered by WatsonX</h4>
+        </section>
+    <div>
+
+    <script>
+    
+    window.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+            document.getElementById('tooltip').classList.add('show');
+        }, 3000); // Show after 2 seconds
+    });
+    
+       
+    </script>
+</body>
+</html>

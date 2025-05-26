@@ -1,0 +1,177 @@
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+def login_user(username, password):
+    try:
+        response = client.post_find(
+            db=DB_NAME,
+            selector={"username": username},
+            fields=["username", "password", "access_login"],
+            limit=1
+        ).get_result()
+    
+        if response['docs']:
+            user = response['docs']
+            if user['password'] == password:
+                # Validate access_log as a flag yes/no
+                access_log = user.get('access_login', '').lower()
+                if access_login == 'true':
+                    # Store user session
+                    session['username'] = user['username']
+                    flash('Login successful!', 'Welcome to the Dashboard')
+                    return redirect(url_for('dashboard'))
+                elif access_login == 'false':
+                    flash('Access denied!', 'Please reach out to system adminstrator for access')
+                else:
+                    logger.error(f"Invalid access_login value: {access_login} for user: {username}")
+                    flash('Invalid access_log value!', 'User not known')
+            else:
+                flash('Invalid password!', 'Password incorrect, Please check you password/reset your password')
+        else:
+            flash('User not found!', 'User details not found')
+    
+    except CloudantException as e:
+        logger.error(f"Error querying Cloudant DB: {e}")
+        flash(f"Error querying Cloudant DB: {e}", 'danger')
+    
+    return redirect(url_for('home'))
+
+if __name__ == "__main__":
+    app.run()
+
+----------------------------------------------------------------------------------------
+updated - code
+
+
+
+
+try:
+        response = client.post_find(
+            db=DB_NAME,
+            selector={"username": username},
+            fields=["username", "password", "access_login"],
+            limit=1
+        ).get_result()
+    
+        if response['docs']:
+            user = response['docs'][0]
+            if user['password'] == password:
+                # Validate access_log as a flag yes/no
+                access_log = user.get('access_login', '')
+                if access_log == 'true':
+                    # Store user session
+                    session['username'] = user['username']
+                    flash('Login successful!', 'Welcome to the Dashboard')
+                    return redirect(url_for('dashboard'))
+                elif access_log == 'false':
+                    flash('Access denied!', 'Please reach out to system adminstrator for access')
+                else:
+                    flash('Invalid access_log value!', 'User not known')
+            else:
+                flash('Invalid password!', 'Password incorrect, Please check you password/reset your password')
+        else:
+            flash('User not found!', 'User details not found')
+    
+    except ApiException as e:
+        flash(f"Error querying Cloudant DB: {e}", 'danger')
+    
+    return redirect(url_for('home'))
+
+------------------------------------------------------------------------
+
+# Route to handle login form submission
+@app.route('/login', methods=['POST'])
+def login():
+    username = request.form['username']
+    password = request.form['password']
+    
+    # Query Cloudant DB to check if the user exists
+    try:
+        response = client.post_find(
+            db=DB_NAME,
+            selector={"username": username},
+            fields=["username", "password", "email", "role", "is_active"], # Add 'is_active' field
+            limit=1
+        ).get_result()
+
+
+        if response['docs']:
+            user = response['docs'][0]
+            
+            # Check if the password is correct
+            if user['password'] == password:
+                # Check if the user is active
+                if user.get('is_active', False): # If 'is_active' is True, allow login
+                    # Store user session variables
+                    session['username'] = user['username']
+                    session['email'] = user['email']
+                    session['role'] = user['role']
+
+
+                    flash('Login successful!', 'success')
+                    return redirect(url_for('dashboard'))
+                else:
+                    flash('Your account is inactive. Please contact support.', 'danger')
+            else:
+                flash('Invalid password!', 'danger')
+        else:
+            flash('User not found!', 'danger')
+
+
+    except ApiException as e:
+        flash(f"Error querying Cloudant DB: {e}", 'danger')
+
+
+    return redirect(url_for('home'))
+```
+
+
+### Explanation of the Modifications:
+1. **Check for `is_active` Field**:  
+   I added the `is_active` field to the list of fields being retrieved from Cloudant.
+   - `fields=["username", "password", "email", "role", "is_active"]` ensures that `is_active` is included in the response.
+   
+2. **Conditional Login Based on `is_active`**:  
+   After checking if the password matches (`if user['password'] == password`), we check if `user['is_active']` is `True`:
+   - `if user.get('is_active', False)`:
+     - This checks whether the `is_active` field exists and is `True`. If `is_active` is `True`, the login proceeds.
+     - If `is_active` is `False` or does not exist, the login fails and a flash message indicates that the account is inactive.
+
+
+3. **Storing Session Variables**:  
+   If the login is successful and the account is active, the session variables are stored, including `username`, `email`, and `role`. These values are used for managing user-specific content on other pages, like the `dashboard`.
+
+
+### Example of the Dashboard Route:
+
+
+To access these session variables on other routes, you can use them like this:
+
+
+```python
+# Example on the dashboard route:
+@app.route('/dashboard')
+def dashboard():
+    if 'username' not in session:
+        flash('You need to login first!', 'danger')
+        return redirect(url_for('home'))
+
+
+    username = session['username']
+    email = session['email']
+    role = session['role']
+
+
+    return f"Hello, {username}! Your email is {email} and your role is {role}."
+```
+
+
+### Summary:
+1. I added the `is_active` field in the query to determine if the user is allowed to log in.
+2. The user can only log in if the `is_active` field is `True`.
+3. If the account is inactive, a flash message informs the user that they cannot log in.
+4. I also stored other session variables (`username`, `email`, `role`) to maintain the user's login state.
+
+
+This should handle the login process where an additional check on a session variable (or database field) is used to control access to the application. Let me know if you need further assistance!

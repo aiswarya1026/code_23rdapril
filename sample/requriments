@@ -1,0 +1,5 @@
+Flask
+ibm-cloud-sdk-core
+ibmcloudant
+requests
+gunicorn
